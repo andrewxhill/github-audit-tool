@@ -1,5 +1,6 @@
 #Written by Ben Francom (benfran.com) for EISMGard LLC (eismgard.com) under the MIT License
 import os
+import json
 from unicodedata import name
 from github import Github
 
@@ -20,27 +21,29 @@ print(f"::set-output name=org::org")
 #Get list of repos
 try: 
     repos = org.get_repos()
-    rrr = []
-    repo_lines = "Repos\n"
+    repo_lines = []
+    # repo_lines = "Repos\n"
     for r in repos:
-        repo_lines += "  " + r.git_url + "\n"
-        rrr.append(r.git_url)
-    print(f"::set-output name=repos::{rrr}")
+        # repo_lines += "  " + r.git_url + "\n"
+        repo_lines.append(r.git_url)
+    print(f"::set-output name=repos::{repo_lines}")
 except:
-    message = "failed to list repos\n"
+    message = "[]\n"
     print(f"::set-output name=repos::{message}")
 
 
 #Get list of teams
 try:
     teams = org.get_teams()
-    team_lines = "\nTeams\n"
+    team_lines = {}
     for t in teams:
-        team_lines += "  " + t.name + "\n"
+        # team_lines += "  " +  + "\n"
+        team_lines[t.name] = []
         team_repos = t.get_repos()
         for r in team_repos:
-            team_lines += "    " + r.git_url + "\n"
-    print(f"::set-output name=teams::{team_lines}")
+            team_lines[t.name].append(r.git_url)
+            # team_lines += "    " + r.git_url + "\n"
+    print(f"::set-output name=teams::{json.dumps(team_lines)}")
 except:
     message = "failed to list teams\n"
     print(f"::set-output name=teams::{message}")
