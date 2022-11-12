@@ -28,9 +28,7 @@ try:
     for r in repos:
         repo_lines.append(r.git_url)
 except:
-    message = "[]"
     errors["repos"] = "failed ot get repos"
-    print(f"::set-output name=repos::{message}")
 
 print(f"::set-output name=repos::{repo_lines}")
 audit["repos"] = repo_lines
@@ -102,7 +100,7 @@ if dr[0] != "":
     if not os.path.exists(dr[0]):
         print("making pth")
         print(dr[0])
-        os.makedirs(dr[0], exist_ok=True)
+        os.makedirs(os.path.abspath(dr[0]), exist_ok=True)
 
 json_object = json.dumps(audit, indent=4)
 with open(pth, "w+") as outfile:
