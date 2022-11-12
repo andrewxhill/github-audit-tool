@@ -11,6 +11,9 @@ inputs:
     required: true
     description: Token of the user that creates the issue
 outputs:
+  org:
+    description: 'Organization name'
+    value: ${{ steps.run-audit.outputs.org }}
   repos:
     description: 'Repo list'
     value: ${{ steps.run-audit.outputs.repos }}

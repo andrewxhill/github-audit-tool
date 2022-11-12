@@ -15,13 +15,17 @@ if os.environ.get('INPUT_ORG') is None:
 
 
 
+print(f"::set-output name=org::org")
+
 #Get list of repos
 try: 
     repos = org.get_repos()
+    rrr = []
     repo_lines = "Repos\n"
     for r in repos:
         repo_lines += "  " + r.git_url + "\n"
-    print(f"::set-output name=repos::{repo_lines}")
+        rrr.append(r.git_url)
+    print(f"::set-output name=repos::{rrr}")
 except:
     message = "failed to list repos\n"
     print(f"::set-output name=repos::{message}")
