@@ -14,7 +14,6 @@ jobs:
         uses: ./
         # pass user input as arguments
         with:
-          path: .audit/output.json
           org: actions
           token: ${{secrets.GITHUB_TOKEN}} # default token in GitHub Workflow
       - run: echo "${{ steps.audit.outputs.org }}"
