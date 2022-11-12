@@ -10,6 +10,19 @@ inputs:
   token: # token variable available in workflow as env var named INPUT_TOKEN
     required: true
     description: Token of the user that creates the issue
+outputs:
+  repos:
+    description: 'Repo list'
+    value: ${{ steps.run-audit.outputs.repos }}
+  teams:
+    description: 'Team list'
+    value: ${{ steps.run-audit.outputs.teams }}
+  members:
+    description: 'Team member list'
+    value: ${{ steps.run-audit.outputs.members }}
+  rights:
+    description: 'User repo rights list'
+    value: ${{ steps.run-audit.outputs.rights }}
 runs:
   using: 'composite'
   steps:

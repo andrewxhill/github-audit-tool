@@ -7,6 +7,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Run Action
+        id: audit
         # we can give directory path that contains action.yaml or repo address in username/repository_name format
         # in our case it would be nashmaniac/create-issue-action
         # for now we will give directory path. The directory must contain action.yaml
@@ -15,3 +16,7 @@ jobs:
         with:
           org: ecohack
           token: ${{secrets.GITHUB_TOKEN}} # default token in GitHub Workflow
+      - run: echo "${{ steps.audit.outputs.repos }}"
+      - run: echo "${{ steps.audit.outputs.teams }}"
+      - run: echo "${{ steps.audit.outputs.members }}"
+      - run: echo "${{ steps.audit.outputs.rights }}"
