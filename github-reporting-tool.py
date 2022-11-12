@@ -4,14 +4,14 @@ from unicodedata import name
 from github import Github
 
 # using an access token
-g = Github(os.environ['GITHUB_TOKEN'])
-org = g.get_organization(os.environ['GITHUB_ORG_NAME'])
+g = Github(os.environ['INPUT_TOKEN'])
+org = g.get_organization(os.environ['INPUT_ORG'])
 
 #env chiggity check
-if os.environ.get('GITHUB_TOKEN') is None:
-    print('!!! missing GITHUB_TOKEN environment variable !!!')
-if os.environ.get('GITHUB_ORG_NAME') is None:
-    print('!!! missing GITHUB_ORG_NAME environment variable !!!')
+if os.environ.get('INPUT_TOKEN') is None:
+    print('!!! missing INPUT_TOKEN environment variable !!!')
+if os.environ.get('INPUT_ORG') is None:
+    print('!!! missing INPUT_ORG environment variable !!!')
 
 
 #Get list of repos

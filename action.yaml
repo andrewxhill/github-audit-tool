@@ -1,0 +1,22 @@
+# every action has a name
+name: GitHub Audit Action
+# description
+description: This action runs audits github organizations including their repos, users, and teams. It is useful for compliance, security and auditing. Based on https://github.com/EISMGard/github-audit-tool.
+# input parameters to be taken from user
+inputs:
+  org: # name of github organization. In action script it will be available in workflow as environment variable with name INPUT_ORG
+    required: true # required variable possible values are true or false
+    description: Name of the organization generally found - https://github.com/{NAME}
+  token: # token variable available in workflow as env var named INPUT_TOKEN
+    required: true
+    description: Token of the user that creates the issue
+
+# definition how we want our action
+runs:
+  using: docker # we are saying this action will run on docker
+  image: 'Dockerfile' # we will use our own Dockerfile to build an image and run it.
+
+# for publishing purposes
+branding: #generates a logo for our action
+  icon: lock #icon of the image
+  color: red # background color of the logo of our action
