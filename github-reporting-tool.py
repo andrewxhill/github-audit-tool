@@ -29,7 +29,7 @@ try:
         repo_lines.append(r.git_url)
     print(f"::set-output name=repos::{repo_lines}")
 except:
-    message = "[]\n"
+    message = "[]"
     print(f"::set-output name=repos::{message}")
 
 

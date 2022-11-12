@@ -22,3 +22,24 @@ jobs:
       - run: echo "${{ steps.audit.outputs.members }}"
       - run: echo "${{ steps.audit.outputs.rights }}"
       - run: echo "${{ steps.audit.outputs.errors }}"
+
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Overwrite file
+        uses: BoundfoxStudios/action-write-file@v1
+        with:
+          path: audit.json
+          write-mode: overwrite
+          contents: |
+            {
+              "org": "${{ steps.audit.outputs.org }}"
+            }
+            
+      - name: Commit & Push
+        uses: Andro999b/push@v1.3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
+          force: true
+          message: 'Overwritten by Github Actions - ${date}'
