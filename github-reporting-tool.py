@@ -16,7 +16,7 @@ if os.environ.get('INPUT_ORG') is None:
 
 
 
-print(f"::set-output name=org::org")
+print(f"::set-output name=org::{org}")
 
 errors = {}
 #Get list of repos
