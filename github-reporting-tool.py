@@ -99,7 +99,7 @@ dr = os.path.split(pth)
 if dr[0] != "":
     if not os.path.exists(dr[0]):
         print("making pth")
-        print(dr[0])
+        print(os.path.abspath(dr[0]))
         os.makedirs(os.path.abspath(dr[0]), exist_ok=True)
 
 json.dump(audit, open(pth, "w+"), sort_keys=True, indent=4, separators=(',', ': '))
