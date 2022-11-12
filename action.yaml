@@ -11,8 +11,8 @@ inputs:
     required: true
     description: Token of the user that creates the issue
   path: 
-    required: true
-    description: The path to the file to write audit
+    required: false
+    description: The path to a file to write audit
 outputs:
   errors:
     description: 'Run errors'
