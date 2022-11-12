@@ -27,7 +27,7 @@ runs:
       shell: bash
     - name: Run audit
       id: run-audit
-      run: python src/github-reporting-tool.py
+      run: python github-reporting-tool.py
       shell: bash
 
 # for publishing purposes
