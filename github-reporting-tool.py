@@ -14,7 +14,9 @@ if os.environ.get('INPUT_TOKEN') is None:
 if os.environ.get('INPUT_ORG') is None:
     print('!!! missing INPUT_ORG environment variable !!!')
 
-
+audit = {
+    "org": os.environ['INPUT_ORG']
+}
 
 print(f"::set-output name=org::{os.environ['INPUT_ORG']}")
 
@@ -27,8 +29,11 @@ try:
         repo_lines.append(r.git_url)
 except:
     message = "[]"
+    errors["repos"] = "failed ot get repos"
     print(f"::set-output name=repos::{message}")
+
 print(f"::set-output name=repos::{repo_lines}")
+audit["repos"] = repo_lines
 
 #Get list of teams
 team_lines = {}
@@ -41,12 +46,13 @@ try:
             for r in team_repos:
                 team_lines[t.name].append(r.git_url)
         except:
-            errors[t.name] = "failed ot get repos"
+            errors[t.name] = "failed ot get team"
 
 except:
     message = "failed to list teams"
     errors["teams"] = message
 print(f"::set-output name=teams::{json.dumps(team_lines)}")
+audit["teams"] = team_lines
 
 #Get list of team members
 membership_lines = {}
@@ -58,11 +64,12 @@ try:
             for m in t.get_members():
                 membership_lines[t.name].append(m.login)
         except:
-            errors[t.name] = "failed ot get members"
+            errors[t.name] = "failed to get members"
 except:
     message = "failed to list members"
     errors["members"] = message
 print(f"::set-output name=members::{json.dumps(membership_lines)}")
+audit["members"] = membership_lines
 
 #Get list of repos
 rights_lines = {}
@@ -81,5 +88,12 @@ except:
     errors["rights"] = message
 
 print(f"::set-output name=rights::{json.dumps(rights_lines)}")
+audit["rights"] = rights_lines
 
 print(f"::set-output name=errors::{json.dumps(errors)}")
+audit["errors"] = errors
+
+
+json_object = json.dumps(audit, indent=4)
+with open(".audit/output.json", "w") as outfile:
+    outfile.write(json_object)

@@ -26,21 +26,6 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Overwrite file
-        uses: BoundfoxStudios/action-write-file@v1
-        with:
-          path: audit.json
-          write-mode: overwrite
-          contents: |
-            {
-              "org": "${{ steps.audit.outputs.org }}",
-              "repos": ${{ steps.audit.outputs.repos }},
-              "teams": ${{ steps.audit.outputs.teams }},
-              "members": ${{ steps.audit.outputs.members }},
-              "rights": ${{ steps.audit.outputs.rights }},
-              "errors": ${{ steps.audit.outputs.errors }},
-            }
-            
       - name: Commit & Push
         uses: Andro999b/push@v1.3
         with:
