@@ -10,13 +10,28 @@ inputs:
   token: # token variable available in workflow as env var named INPUT_TOKEN
     required: true
     description: Token of the user that creates the issue
-
-# definition how we want our action
 runs:
-  using: docker # we are saying this action will run on docker
-  image: 'Dockerfile' # we will use our own Dockerfile to build an image and run it.
+  using: 'composite'
+  steps:
+    - name: Install Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'  
+    - name: Install Dependencies
+      run: pip install -r requirements.txt
+      shell: bash
+    - name: Pass Inputs to Shell
+      run: |
+       echo "INPUT_ORG=${{ inputs.org }}" >> $GITHUB_ENV
+       echo "INPUT_TOKEN=${{ inputs.token }}" >> $GITHUB_ENV
+      shell: bash
+    - name: Run audit
+      id: run-audit
+      run: python src/github-reporting-tool.py
+      shell: bash
 
 # for publishing purposes
 branding: #generates a logo for our action
   icon: lock #icon of the image
   color: red # background color of the logo of our action
+
