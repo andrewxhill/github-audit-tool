@@ -23,9 +23,7 @@ errors = {}
 repo_lines = []
 try: 
     repos = org.get_repos()
-    # repo_lines = "Repos\n"
     for r in repos:
-        # repo_lines += "  " + r.git_url + "\n"
         repo_lines.append(r.git_url)
 except:
     message = "[]"
@@ -37,12 +35,14 @@ team_lines = {}
 try:
     teams = org.get_teams()
     for t in teams:
-        # team_lines += "  " +  + "\n"
         team_lines[t.name] = []
-        team_repos = t.get_repos()
-        for r in team_repos:
-            team_lines[t.name].append(r.git_url)
-            # team_lines += "    " + r.git_url + "\n"
+        try:
+            team_repos = t.get_repos()
+            for r in team_repos:
+                team_lines[t.name].append(r.git_url)
+        except:
+            errors[t.name] = "failed ot get repos"
+
 except:
     message = "failed to list teams"
     errors["teams"] = message
@@ -54,9 +54,11 @@ try:
     teams = org.get_teams()
     for t in teams:
         membership_lines[t.name] = []
-        for m in t.get_members():
-            #print("      Name: ",m.name,", Email: ",m.email,", ID: ",m.id,", Login: ",m.login)
-            membership_lines[t.name].append(m.login)
+        try:
+            for m in t.get_members():
+                membership_lines[t.name].append(m.login)
+        except:
+            errors[t.name] = "failed ot get members"
 except:
     message = "failed to list members"
     errors["members"] = message
@@ -68,10 +70,12 @@ try:
     repos = org.get_repos()
     for r in repos:
         rights_lines[r.git_url] = []
-        collaborators = r.get_collaborators()
-        for c in collaborators:
-            rights_lines[r.git_url].append(c.login)
-            #print("      Name: ",c.name,", Email: ",c.email,", ID: ",c.id,", Login: ",c.login)
+        try:
+            collaborators = r.get_collaborators()
+            for c in collaborators:
+                rights_lines[r.git_url].append(c.login)
+        except:
+            errors[r.git_url] = "failed ot get collaborators"
 except:
     message = "failed to list rights"
     errors["rights"] = message
