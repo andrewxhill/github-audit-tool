@@ -98,10 +98,11 @@ audit["errors"] = errors
 pth = os.environ['INPUT_PATH']
 print(pth)
 dr = os.path.split(pth)
-if not os.path.exists(dr[0]):
-    print("making pth")
-    print(dr[0])
-    os.makedirs(dr[0], exist_ok=True)
+if dr[0] != "":
+    if not os.path.exists(dr[0]):
+        print("making pth")
+        print(dr[0])
+        os.makedirs(dr[0], exist_ok=True)
 
 json_object = json.dumps(audit, indent=4)
 with open(pth, "w+") as outfile:
