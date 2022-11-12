@@ -10,6 +10,9 @@ inputs:
   token: # token variable available in workflow as env var named INPUT_TOKEN
     required: true
     description: Token of the user that creates the issue
+  path: 
+    description: "The path to the file to write audit"
+    required: true
 outputs:
   errors:
     description: 'Run errors'

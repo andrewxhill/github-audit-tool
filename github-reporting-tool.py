@@ -93,10 +93,14 @@ audit["rights"] = rights_lines
 print(f"::set-output name=errors::{json.dumps(errors)}")
 audit["errors"] = errors
 
-dr = os.path.join(os.environ['GITHUB_WORKSPACE'], ".audit")
-if not os.path.exists(dr):
-    os.makedirs(dr)
+
+
+pth = os.environ['INPUT_PATH']
+if pth == "":
+    pth = ".audit/output.json"
+if not os.path.exists(pth):
+    os.makedirs(pth)
 
 json_object = json.dumps(audit, indent=4)
-with open(dr + "/output.json", "w") as outfile:
+with open(pth, "w") as outfile:
     outfile.write(json_object)
