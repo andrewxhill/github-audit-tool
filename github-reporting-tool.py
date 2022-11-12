@@ -18,6 +18,7 @@ if os.environ.get('INPUT_ORG') is None:
 
 print(f"::set-output name=org::org")
 
+errors = {}
 #Get list of repos
 try: 
     repos = org.get_repos()
@@ -46,7 +47,7 @@ try:
     print(f"::set-output name=teams::{json.dumps(team_lines)}")
 except:
     message = "failed to list teams\n"
-    print(f"::set-output name=teams::{message}")
+    errors["teams"] = message
 
 #Get list of team members
 try:
@@ -77,3 +78,6 @@ try:
 except:
     message = "failed to list rights\n"
     print(f"::set-output name=rights::{message}")
+
+
+print(f"::set-output name=errors::{json.dumps(errors)}")

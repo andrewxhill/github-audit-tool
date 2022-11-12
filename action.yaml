@@ -11,6 +11,9 @@ inputs:
     required: true
     description: Token of the user that creates the issue
 outputs:
+  errors:
+    description: 'Run errors'
+    value: ${{ steps.run-audit.outputs.errors }}
   org:
     description: 'Organization name'
     value: ${{ steps.run-audit.outputs.org }}
