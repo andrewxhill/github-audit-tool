@@ -16,7 +16,7 @@ if os.environ.get('INPUT_ORG') is None:
 
 
 
-print(f"::set-output name=org::{org}")
+print(f"::set-output name=org::{os.environ['INPUT_ORG']}")
 
 errors = {}
 #Get list of repos
@@ -75,7 +75,7 @@ try:
 except:
     message = "failed to list rights"
     errors["rights"] = message
-    
+
 print(f"::set-output name=rights::{json.dumps(rights_lines)}")
 
 print(f"::set-output name=errors::{json.dumps(errors)}")
