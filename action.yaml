@@ -46,7 +46,7 @@ runs:
       run: |
        echo "INPUT_ORG=${{ inputs.org }}" >> $GITHUB_ENV
        echo "INPUT_TOKEN=${{ inputs.token }}" >> $GITHUB_ENV
-       echo "INPUT_PATH=${{ inputs.path }}" >> $GITHUB_ENV
+       echo "INPUT_NAME=${{ inputs.name }}" >> $GITHUB_ENV
       shell: bash
     - name: Run audit
       id: run-audit
