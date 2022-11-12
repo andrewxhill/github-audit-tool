@@ -46,38 +46,37 @@ try:
             # team_lines += "    " + r.git_url + "\n"
     print(f"::set-output name=teams::{json.dumps(team_lines)}")
 except:
-    message = "failed to list teams\n"
+    message = "failed to list teams"
     errors["teams"] = message
 
 #Get list of team members
 try:
-    membership_lines = "\nMembers\n"
+    membership_lines = {}
     teams = org.get_teams()
     for t in teams:
-        membership_lines += "  " + t.name + " Team Members:\n"
-        print("  ",t.name," Team Members:")
+        membership_lines[t.name] = []
         for m in t.get_members():
             #print("      Name: ",m.name,", Email: ",m.email,", ID: ",m.id,", Login: ",m.login)
-            membership_lines += "    " + m.login + "\n"
-    print(f"::set-output name=members::{membership_lines}")
+            membership_lines[t.name].append(m.login)
+    print(f"::set-output name=members::{json.dumps(membership_lines)}")
 except:
-    message = "failed to list members\n"
-    print(f"::set-output name=members::{message}")
+    message = "failed to list members"
+    errors["members"] = message
 
 #Get list of repos
 try: 
-    rights_lines = "\nRights\n"
+    rights_lines = {}
     repos = org.get_repos()
     for r in repos:
-        rights_lines += "  " + r.git_url + "\n"
+        rights_lines[r.git_url] = []
         collaborators = r.get_collaborators()
         for c in collaborators:
+            rights_lines[r.git_url].append(c.login)
             #print("      Name: ",c.name,", Email: ",c.email,", ID: ",c.id,", Login: ",c.login)
-            rights_lines += "  " + c.login + "\n"
-    print(f"::set-output name=rights::{rights_lines}")
+    print(f"::set-output name=rights::{json.dumps(rights_lines)}")
 except:
-    message = "failed to list rights\n"
-    print(f"::set-output name=rights::{message}")
+    message = "failed to list rights"
+    errors["rights"] = message
 
 
 print(f"::set-output name=errors::{json.dumps(errors)}")
