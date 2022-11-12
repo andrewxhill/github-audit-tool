@@ -34,3 +34,11 @@ jobs:
           branch: main
           force: true
           message: 'Overwritten by Github Actions - ${date}'
+      - name: push
+        uses: github-actions-x/commit@v2.9
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          push-branch: 'master'
+          commit-message: 'Overwritten by Github Actions - ${date}'
+          force-add: 'true'
+          files: .audit/output.json
