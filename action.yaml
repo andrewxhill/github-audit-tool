@@ -11,8 +11,8 @@ inputs:
     required: true
     description: Token of the user that creates the issue
   path: 
-    description: "The path to the file to write audit"
     required: true
+    description: The path to the file to write audit
 outputs:
   errors:
     description: 'Run errors'
@@ -46,6 +46,7 @@ runs:
       run: |
        echo "INPUT_ORG=${{ inputs.org }}" >> $GITHUB_ENV
        echo "INPUT_TOKEN=${{ inputs.token }}" >> $GITHUB_ENV
+       echo "INPUT_PATH=${{ inputs.path }}" >> $GITHUB_ENV
       shell: bash
     - name: Run audit
       id: run-audit
