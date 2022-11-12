@@ -16,7 +16,7 @@ jobs:
         with:
           name: audit.json
           org: actions
-          token: ${{secrets.GITHUB_TOKEN}} # default token in GitHub Workflow
+          token: ${{secrets.GITHUB_TOKEN}} 
       - run: echo "${{ steps.audit.outputs.org }}"
       - run: echo "${{ steps.audit.outputs.repos }}"
       - run: echo "${{ steps.audit.outputs.teams }}"

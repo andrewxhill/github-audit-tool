@@ -94,5 +94,6 @@ audit["errors"] = errors
 
 
 pth = os.environ['INPUT_NAME']
+print(os.environ['GITHUB_WORKSPACE'])
 if pth != "":
     json.dump(audit, open(pth, "w+"), sort_keys=True, indent=4, separators=(',', ': '))
