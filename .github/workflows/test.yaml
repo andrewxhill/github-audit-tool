@@ -14,7 +14,7 @@ jobs:
         uses: ./
         # pass user input as arguments
         with:
-          org: ecohack
+          org: actions
           token: ${{secrets.GITHUB_TOKEN}} # default token in GitHub Workflow
       - run: echo "${{ steps.audit.outputs.org }}"
       - run: echo "${{ steps.audit.outputs.repos }}"
