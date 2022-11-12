@@ -10,9 +10,9 @@ inputs:
   token: # token variable available in workflow as env var named INPUT_TOKEN
     required: true
     description: Token of the user that creates the issue
-  name: 
+  path: 
     required: false
-    description: The name of the audit output json file
+    description: The path of the audit output json file
 outputs:
   errors:
     description: 'Run errors'
@@ -46,7 +46,7 @@ runs:
       run: |
        echo "INPUT_ORG=${{ inputs.org }}" >> $GITHUB_ENV
        echo "INPUT_TOKEN=${{ inputs.token }}" >> $GITHUB_ENV
-       echo "INPUT_NAME=${{ inputs.name }}" >> $GITHUB_ENV
+       echo "INPUT_PATH=${{ inputs.path }}" >> $GITHUB_ENV
       shell: bash
     - name: Run audit
       id: run-audit
