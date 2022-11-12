@@ -93,6 +93,8 @@ audit["rights"] = rights_lines
 print(f"::set-output name=errors::{json.dumps(errors)}")
 audit["errors"] = errors
 
+if not os.path.exists(".audit"):
+    os.makedirs(".audit")
 
 json_object = json.dumps(audit, indent=4)
 with open(".audit/output.json", "w") as outfile:
