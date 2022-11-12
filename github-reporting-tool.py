@@ -93,7 +93,7 @@ audit["rights"] = rights_lines
 print(f"::set-output name=errors::{json.dumps(errors)}")
 audit["errors"] = errors
 
-dr = os.path.join(os.environ['INPUT_ORG'], ".audit")
+dr = os.path.join(os.environ['GITHUB_WORKSPACE'], ".audit")
 if not os.path.exists(dr):
     os.makedirs(dr)
 
