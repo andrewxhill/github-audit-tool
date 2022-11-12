@@ -102,7 +102,4 @@ if dr[0] != "":
         print(dr[0])
         os.makedirs(os.path.abspath(dr[0]), exist_ok=True)
 
-json_object = json.dumps(audit, indent=4)
-with open(pth, "w+") as outfile:
-    print("writing")
-    outfile.write(json_object)
+json.dump(audit, open(pth, "w+"), sort_keys=True, indent=4, separators=(',', ': '))
