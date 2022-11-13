@@ -28,7 +28,7 @@ jobs:
       - name: Commit audit
         run: |
           git config --local user.name  ${{ github.actor }}
-          git add ${{ inputs.path }}
+          git add .
       - name: Commit & Push
         uses: Andro999b/push@v1.3
         with:
