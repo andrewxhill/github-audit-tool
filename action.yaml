@@ -53,6 +53,11 @@ runs:
       run: python github-reporting-tool.py
       shell: bash
 
+    - name: Commit log
+      run: |
+        git config --local user.name  ${{ github.actor }}
+        git add ${{ inputs.path }}
+
 # for publishing purposes
 branding: #generates a logo for our action
   icon: lock #icon of the image
