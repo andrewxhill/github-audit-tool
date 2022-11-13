@@ -32,3 +32,7 @@ jobs:
           branch: main
           force: true
           message: 'Overwritten by Github Actions - ${date}'
+
+      - name: git
+        run: |
+          git diff HEAD~1
