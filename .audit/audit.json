@@ -116,6 +116,8 @@
         "git://github.com/actions/importer-issue-ops.git"
     ],
     "rights": {
+        "git://github.com/actions/.github.git": [],
+        "git://github.com/actions/actions-sync.git": [],
         "git://github.com/actions/add-to-project.git": [],
         "git://github.com/actions/boost-versions.git": [],
         "git://github.com/actions/cache.git": [],
