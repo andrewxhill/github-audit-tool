@@ -4,8 +4,9 @@ jobs:
   first-job:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
       - name: Run audit
         id: audit
         # we can give directory path that contains action.yaml or repo address in username/repository_name format
@@ -24,9 +25,10 @@ jobs:
       - run: echo "${{ steps.audit.outputs.rights }}"
       - run: echo "${{ steps.audit.outputs.errors }}"
 
-      - name: Checkout repo
-        uses: actions/checkout@v3
-
+      - name: Commit audit
+        run: |
+          git config --local user.name  ${{ github.actor }}
+          git add ${{ inputs.path }}
       - name: Commit & Push
         uses: Andro999b/push@v1.3
         with:
